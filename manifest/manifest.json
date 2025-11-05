@@ -1,0 +1,27 @@
+{
+    "theme_color": "#80006f",
+    "background_color": "#111111",
+    "icons": [
+        {
+            "purpose": "maskable",
+            "sizes": "512x512",
+            "src": "icon512_maskable.png",
+            "type": "image/png"
+        },
+        {
+            "purpose": "any",
+            "sizes": "512x512",
+            "src": "icon512_rounded.png",
+            "type": "image/png"
+        }
+        
+    ],
+    "orientation": "portrait",
+    "display": "standalone",
+    "lang": "es-ES",
+    "name": "Lista de tareas - Productividad y eficiencia",
+    "short_name": "Lista de tareas",
+    "start_url": "../index.html",
+    "scope": "../",
+    "description": "Aplicación de lista de tareas que te ayuda a llevar un control de todo eso que aún está pendiente por hacer, para que no te olvides de nada."
+}

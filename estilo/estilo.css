@@ -1,0 +1,302 @@
+@font-face {
+    font-family: 'Fjalla One';
+    src: url('../assets/font/FjallaOne-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/*-------------------GLOBALES-------------------*/
+body {
+    background-image: linear-gradient(to right top, #3b2137, #141314);
+    background-attachment: fixed;
+}
+
+main {
+    margin-top: 20px;
+    max-width: 100vw;
+    min-height: 400px;
+    color: white;
+}
+
+header {
+    background-color: #141314;
+    color: white;
+    text-align: center;
+    padding: 10px;
+    font-family: "Fjalla One", sans-serif;
+}
+
+h1 {
+    color: #DB2386 !important;
+}
+
+h2,
+h3 {
+    text-align: center;
+}
+
+li {
+    list-style: none;
+}
+
+footer {
+    color: white;
+    background-color: #141314;
+    height: 200px;
+    margin-top: 30px;
+}
+
+.ocultar {
+    display: none;
+}
+
+dialog:not([open]) {
+    display: none !important;
+}
+
+/*-------------------MODAL/DIALOG-------------------*/
+dialog {
+    overflow: hidden;
+    background-color: #141314;
+    border-radius: 10px;
+    display: flex;
+    align-content: center;
+    flex-direction: column;
+    border: none;
+    flex-wrap: wrap;
+    color: white;
+}
+
+.contenidoModal {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.btnModal {
+    display: flex;
+    justify-content: space-evenly;
+    margin-top: 10px;
+    flex-wrap: wrap;
+}
+
+.btnModal button,
+input[type=submit] {
+    border: none;
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.btnModal button:hover {
+    cursor: pointer;
+}
+
+.error {
+    color: red;
+}
+
+.txtCentrado {
+    text-align: center;
+    max-width: 260px;
+    margin-bottom: 0px;
+    word-break: break-all;
+}
+
+form {
+    min-width: 250px;
+}
+
+/*-------------------BOTONES PRINCIPALES-------------------*/
+.contenedor-btn {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 10px;
+}
+
+#agregar-tarea {
+    border-radius: 10px;
+    margin: 10px;
+    padding: 10px;
+    color: white;
+    border: none;
+    background-color: #DB2386;
+    width: 150px;
+    height: 60px;
+    font-size: 1.2em;
+}
+
+#btn-instalar {
+    padding: 10px;
+    color: white;
+    border: none;
+    background-color: #db23859a;
+    width: 100%;
+    height: 60px;
+    font-size: 1.2em;
+    font-weight: 600;
+}
+
+#agregar-tarea:hover,
+#btn-instalar:hover {
+    background-color: white;
+    color: #DB2386;
+    transition: ease-in 0.2s;
+}
+
+.botonGris {
+    background-color: grey;
+}
+
+.botonVerde {
+    background-color: green;
+}
+
+.botonGris:hover,
+.botonVerde:hover {
+    filter: brightness(110%);
+}
+
+/*-------------------CONTENEDOR DE TAREAS-------------------*/
+.contenedor-tareas {
+    display: flex;
+    justify-content: center;
+}
+
+.contenedor-pendientes,
+.contenedor-completas {
+    min-height: auto;
+    height: auto;
+}
+
+.contenedor-completas {
+    margin-top: 40px;
+}
+
+.tareaCompleta {
+    color: rgb(103, 103, 103);
+    text-decoration: line-through;
+}
+
+.listaFlex {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: outset 2px rgba(255, 255, 255, 0.66);
+    margin: 10px;
+    flex-wrap: wrap;
+}
+
+#boton-eliminar {
+    background: transparent;
+    border: none;
+    padding: 0px;
+
+    img {
+        width: 24px;
+        margin-bottom: 5px;
+    }
+}
+
+.divLabel {
+    max-width: 400px;
+    margin-right: 60px;
+    min-width: 400px;
+    word-break: break-all;
+
+    label {
+        cursor: pointer;
+    }
+}
+
+.divOpciones {
+    display: flex;
+    align-items: center;
+}
+
+input[type=checkbox] {
+    cursor: pointer;
+    margin-bottom: 5px;
+    margin-right: 10px;
+}
+
+input[type=checkbox]:checked {
+    background-color: green;
+}
+
+#aviso-conexion {
+    margin-bottom: -30px;
+    position: sticky;
+}
+
+.p-aviso {
+    color: white;
+    margin: 0px;
+    text-align: center;
+    padding: 20px;
+}
+
+.contenedor-iconos {
+    display: flex;
+    justify-content: flex-start;
+    margin-left: 20%;
+    margin-bottom: 20px;
+}
+
+.btnCompartir {
+    background-color: transparent;
+    border: transparent;
+
+    img {
+        width: 28px;
+        height: 28px;
+        margin-left: 5px;
+        margin-right: 5px;
+    }
+}
+
+.btnCompartir img:hover {
+    transform: scale(1.1);
+    transition: ease-in 0.2s;
+}
+
+/**********MOBILE***********/
+@media (max-width:768px) {
+
+    dialog {
+        min-height: 160px;
+        justify-content: center;
+    }
+
+    main {
+        max-width: 95vw;
+        margin: auto;
+        min-height: 60vh;
+    }
+
+    .contenedor-tareas {
+        margin-top: 30px;
+    }
+
+    .pendientes,
+    .completadas {
+        padding-left: 0;
+    }
+
+    .divLabel {
+        min-width: 50vw;
+        max-width: 50vw;
+    }
+
+    #boton-eliminar {
+        img {
+            width: 32px;
+        }
+    }
+
+    .form-check-input {
+        width: 1.5em;
+        height: 1.5em;
+    }
+}
