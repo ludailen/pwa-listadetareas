@@ -296,6 +296,23 @@ function crearEtiqueta(elemento, contenido = '', atributos = {}) {
     return etiqueta;
 }
 
+/***************************FUNCIÓN NOTIFICAR***************************/
+const $spanAviso = document.querySelector('#aviso-conexion');
+const $p = crearEtiqueta('p', '', { class: 'p-aviso' });
+
+function notificar(texto = '', exito = false) {
+    if (texto) {
+        $p.textContent = texto;
+        if (exito) {
+            $spanAviso.setAttribute('class', 'botonVerde');
+        } else {
+            $spanAviso.setAttribute('class', 'botonGris');
+        }
+        $spanAviso.prepend($p);
+        setTimeout(() => $p.remove(), 4000);
+    }
+}
+
 /***************************MANEJO DE INSTALACIÓN***************************/
 const $contenedor = document.querySelector('.contenedor-iconos');
 const $btnInstalar = crearEtiqueta('button', '', { 'aria-label': 'Descargar Aplicación', class: 'btnCompartir', hidden: '' })
@@ -325,23 +342,6 @@ window.addEventListener('beforeinstallprompt', (eventoInstalacion) => {
 
 })
 
-/***************************FUNCIÓN NOTIFICAR***************************/
-const $spanAviso = document.querySelector('#aviso-conexion');
-const $p = crearEtiqueta('p', '', { class: 'p-aviso' });
-
-function notificar(texto = '', exito = false) {
-    if (texto) {
-        $p.textContent = texto;
-        if (exito) {
-            $spanAviso.setAttribute('class', 'botonVerde');
-        } else {
-            $spanAviso.setAttribute('class', 'botonGris');
-        }
-        $spanAviso.prepend($p);
-        setTimeout(() => $p.remove(), 4000);
-    }
-}
-
 /***************************VALIDAR CONEXIÓN***************************/
 if (!navigator.onLine) {
     notificar('Perdiste la conexión');
@@ -370,7 +370,7 @@ if (navigator.share) {
             const tareas_almacen = evento.target.result;
 
             const arrayTareas = tareas_almacen.map((tarea) => {
-                return `- Tarea: ${tarea.tarea}, estado: ${tarea.estado}`;
+                return `● Tarea: "${tarea.tarea}" - estado: ${tarea.estado}`;
             }).join('\n');
 
             if (arrayTareas.length > 0) {
@@ -401,6 +401,7 @@ if (navigator.share) {
 }
 
 /***************************VALIDAR NOTIFICACIONES***************************/
+
 // validar si el navegador soporta notificaciones
 if ('Notification' in window && 'serviceWorker' in navigator) {
     console.log('Notificaciones soportadas');

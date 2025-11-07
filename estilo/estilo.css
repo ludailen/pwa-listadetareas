@@ -226,7 +226,7 @@ input[type=checkbox]:checked {
 }
 
 #aviso-conexion {
-    margin-bottom: -30px;
+    margin-bottom: 35px;
     position: sticky;
 }
 
@@ -299,4 +299,21 @@ input[type=checkbox]:checked {
         width: 1.5em;
         height: 1.5em;
     }
+
+    .contenedor-iconos {
+        display: flex;
+        justify-content: center;
+        margin-left: 0%;
+        margin-bottom: 20px;
+    }
+
+    .btnCompartir {
+        img {
+            width: 28px;
+            height: 28px;
+            margin-left: 5px;
+            margin-right: 5px;
+        }
+    }
+
 }
