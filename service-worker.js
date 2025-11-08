@@ -15,7 +15,8 @@ const CACHE_URL = [
     'js/bootstrap.bundle.min.js',
     'manifest/manifest.json',
     'manifest/icon512_maskablee.png',
-    'manifest/icon512_rounded.png'
+    'manifest/icon512_rounded.png',
+    'manifest/icon192.png'
 ];
 
 self.addEventListener('install', (evento) => {
@@ -76,17 +77,13 @@ self.addEventListener('notificationclick', (evento) => {
 
     switch(evento.action){
         case 'ignorar':
-            evento.waitUntil(
-                console.log('ignorar')
-                //TODO: PONER WAITUNTIL EN TODOS LOS CASOS
-            )
+            console.log('Se ignoró la notificación');
             break;
         case 'abrir-app':
-            console.log('abrir app', evento.notification.data.url);
             clients.openWindow(evento.notification.data.url);
             break;
         default: 
-            console.log('otros');
+            console.log('No se ejecutó ninguna acción a partir de la notificación');
             break;
     };
 })

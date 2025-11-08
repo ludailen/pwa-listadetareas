@@ -26,7 +26,7 @@ const tarea = {
 }
 
 solicitudApertura.addEventListener('error', () => { // escuchamos el resultado error de la solicitud de apertura
-    notificar('Hubo un error al obtener la información');
+    notificar('Hubo un error al obtener la información'); //no incorporé el manejo de las tareas en un array en caso de que falle la BD
 });
 solicitudApertura.addEventListener('upgradeneeded', (evento) => { // resultado upgradeneeded de la solicitud de apertura
     console.log('La base de datos está siendo creada');
@@ -71,7 +71,7 @@ function ingresarTarea() {
     //escucho el evento 'submit' del formulario y valido la entrada del input
     $form.addEventListener("submit", (evento) => {
         evento.preventDefault();
-        //si validarInput es false, 'finaliza' ahí. sino, se agrega la tarea al almacén
+        //si validarInput es false, se muestra msj de error. sino, se agrega la tarea
         if (!validarInput($input, $spanError)) return;
         agregarTarea($input.value);
         $input.value = "";
@@ -121,7 +121,7 @@ function mostrarTarea() {
             const $li = crearEtiqueta("li", "", { "data-id": `${tarea.id_tarea}`, class: 'listaFlex' });
             const $checkbox = crearEtiqueta("input", "", { type: "checkbox", id: `tarea-${tarea.id_tarea}`, class: 'form-check-input' });
             const $label = crearEtiqueta("label", tarea.tarea, { for: `tarea-${tarea.id_tarea}` });
-            const $btnEliminar = crearEtiqueta('button', '', { id: 'boton-eliminar', 'aria-label': `Eliminar tarea '${tarea.tarea}'`, "data-id": `${tarea.id_tarea}` });
+            const $btnEliminar = crearEtiqueta('button', '', { id: 'boton-eliminar', 'aria-label': `Eliminar tarea '${tarea.tarea}'`, "data-id": `${tarea.id_tarea}`, "data-tarea": `${tarea.tarea}` });
             const $iconoEliminar = crearEtiqueta('img', '', { src: 'assets/icon/eliminar.png', alt: 'Icono de Eliminar' });
             const $contenedorLabel = crearEtiqueta('div', '', { class: 'divLabel' });
             const $contenedorOpciones = crearEtiqueta('div', '', { class: 'divOpciones' });
@@ -242,12 +242,15 @@ function agregarTarea($input) {
 }
 
 function eliminarTarea(evento) {
-    //obtengo el id de la tarea clickeada
+    //obtengo el id y el nombre de la tarea clickeada
     const $itemId = +evento.currentTarget.dataset.id;
+    const $itemTarea = evento.currentTarget.dataset.tarea;
+
+    console.log('la tarea a eliminar es: ', evento.currentTarget);
 
     const $modalEliminar = crearEtiqueta('dialog');
     const $contenido = crearEtiqueta('div', '', { class: 'contenidoModal' });
-    const $mensaje = crearEtiqueta('p', `¿Seguro que querés eliminar la tarea "${tarea.tarea}"?`, { class: 'txtCentrado' });
+    const $mensaje = crearEtiqueta('p', `¿Seguro que querés eliminar la tarea "${$itemTarea}"?`, { class: 'txtCentrado' });
     const $divBotones = crearEtiqueta('div', '', { class: 'btnModal' });
     const $btnCancelar = crearEtiqueta('button', 'Cancelar', { type: 'button', class: 'botonVerde' });
     const $btnConfirmar = crearEtiqueta('button', 'Eliminar', { type: 'button', class: 'botonGris' });
@@ -270,7 +273,7 @@ function eliminarTarea(evento) {
         const solicitudEliminar = almacen.delete($itemId);
 
         solicitudEliminar.addEventListener('success', (e) => {
-            console.log('se eliminó correctamente la tarea: ', $itemId);
+            console.log('Se eliminó correctamente la tarea: ', $itemTarea);
             mostrarTarea();
             $modalEliminar.close();
             $modalEliminar.remove();
@@ -336,11 +339,9 @@ window.addEventListener('beforeinstallprompt', (eventoInstalacion) => {
                     notificar('No se logró instalar la aplicación');
                 }
                 $btnInstalar.remove();
-            })
-
+            });
     });
-
-})
+});
 
 /***************************VALIDAR CONEXIÓN***************************/
 if (!navigator.onLine) {
@@ -353,6 +354,7 @@ window.addEventListener('offline', () => { notificar('Perdiste la conexión') })
 
 
 /***************************COMPARTIR***************************/
+//valido si el navegador es compatible con la API Share
 if (navigator.share) {
     const $contenedor = document.querySelector('.contenedor-iconos');
     const $button = crearEtiqueta('button', '', { 'aria-label': 'Compartir lista de tareas', class: 'btnCompartir' })
@@ -381,11 +383,10 @@ if (navigator.share) {
 
                 navigator.share(objetoShare)
                     .then(() => {
-                        console.log('compartido correctamente');
+                        //esto en realidad debería aparecer si realmente se compartió
                         notificar('Se compartió correctamente', true);
                     })
                     .catch(() => {
-                        console.log('f, no se pudo compartir');
                         notificar('Hubo un error al compartir');
                     });
             } else {
@@ -421,20 +422,20 @@ if ('Notification' in window && 'serviceWorker' in navigator) {
             Notification.requestPermission()
                 .then((permiso) => {
                     if (permiso === 'granted') {
-                        notificar('¡Gracias! Empezarás a recibir notificaciones', true)
+                        notificar('¡Gracias! Empezarás a recibir notificaciones', true);
                         $button.remove();
                     } else if (permiso === 'denied') {
                         notificar('No recibirás notificaciones')
                         $button.remove();
                     } else {
                         console.log('El usuario no tomó ninguna decisión');
-                    }
+                    };
                 });
         });
-    }
+    };
 } else {
     console.log('Notificaciones no soportadas');
-}
+};
 
 
 
